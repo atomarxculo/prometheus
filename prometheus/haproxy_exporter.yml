@@ -1,0 +1,2 @@
+- targets:
+       - haproxy-exporter:9101
