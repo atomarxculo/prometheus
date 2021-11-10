@@ -1,3 +1,2 @@
 **/haproxy/package.box
-**/haproxy/.vagrant/
-**/haproxy2/.vagrant/
+**/.vagrant
