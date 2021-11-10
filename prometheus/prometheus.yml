@@ -41,16 +41,16 @@ scrape_configs:
 
     file_sd_configs:
     - files:
-      - '/etc/prometheus/cadvisor.yml'
+      - '/etc/prometheus/hosts/cadvisor.yml'
 
   - job_name: 'node_exporter'
 
     file_sd_configs:
     - files:
-      - '/etc/prometheus/node_exporter.yml'
+      - '/etc/prometheus/hosts/node_exporter.yml'
   
   - job_name: 'haproxy_exporter'
 
     file_sd_configs:
     - files:
-      - '/etc/prometheus/haproxy_exporter.yml'
+      - '/etc/prometheus/hosts/haproxy_exporter.yml'

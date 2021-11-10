@@ -81,21 +81,3 @@ services:
     depends_on:
       - prometheus
 
-  haproxy:
-    image: haproxy
-    volumes:
-      - ./haproxy:/usr/local/etc/haproxy/
-    ports:
-      - 8081:80
-    restart: always
-
-  api01:
-    image: httpd:2.4
-    depends_on:
-      - haproxy
-
-  api02:
-    image: httpd:2.4
-    depends_on:
-      - haproxy
-
