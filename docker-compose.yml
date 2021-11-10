@@ -99,8 +99,3 @@ services:
     depends_on:
       - haproxy
 
-  haproxy-exporter:
-    image: prom/haproxy-exporter
-    ports:
-      - 9101:9101
-    command: --haproxy.scrape-uri="http://admin:admin@haproxy:8081/haproxy?stats;csv"
