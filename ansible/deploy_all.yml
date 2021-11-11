@@ -1,0 +1,47 @@
+---
+- name: Añadir configuración HAProxy
+  hosts: 192.168.33.10
+  vars:
+   frontend: ""
+   backend: ""
+   port: ""
+   ip: ""
+  become: true
+
+  tasks:
+    - name: Insertar servidor en haproxy.cfg
+      blockinfile:
+        path: /etc/haproxy/haproxy.cfg
+        block: |
+          listen ws_{{ frontend }}
+            mode http
+            bind *:{{ port }}
+            server {{ backend }} {{ ip }}:{{ port }} 
+    - name: Reiniciar servicio haproxy
+      service:
+         name: haproxy
+         state: restarted
+
+- name: Configurar servidor docker
+  hosts: 192.168.33.11
+  vars:
+   app: ""
+   url_docker: ""
+  become: true
+  
+  tasks:
+    - name: Crear carpetas
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - ["/etc/pecunpay/{{ app }}", "/var/opt/pecunpay/{{ app }}"]
+    - name: Copiar fichero
+      shell: |
+        cp /etc/pecunpay/test.conf /etc/pecunpay/{{ app }}/
+        cp /var/opt/pecunpay/run.sh /var/opt/pecunpay/{{ app }}/
+    - name: Reemplazar contenido run.sh
+      replace:
+         path: /var/opt/pecunpay/{{ app }}/run.sh
+         regexep: changeme
+         replace: '{{ app }}'
