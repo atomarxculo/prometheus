@@ -1,0 +1,19 @@
+---
+- name: Añadir configuración HAProxy
+  hosts: 192.168.33.10
+  vars:
+   frontend: ""
+   backend: ""
+   port: ""
+   ip: ""
+  become: true
+
+  tasks:
+    - name: Insertar servidor en haproxy.cfg
+      blockinfile:
+        path: /etc/haproxy/haproxy.cfg
+        block: |
+          listen ws_{{ frontend }}
+            mode http
+            bind *:{{ port }}
+            server {{ backend }} {{ ip }}:{{ port }} 
