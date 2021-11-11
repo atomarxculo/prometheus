@@ -40,8 +40,21 @@
       shell: |
         cp /etc/pecunpay/test.conf /etc/pecunpay/{{ app }}/
         cp /var/opt/pecunpay/run.sh /var/opt/pecunpay/{{ app }}/
-    - name: Reemplazar contenido run.sh
-      replace:
-         path: /var/opt/pecunpay/{{ app }}/run.sh
-         regexep: changeme
-         replace: '{{ app }}'
+#    - name: Reemplazar contenido run.sh
+#      replace:
+#         path: /var/opt/pecunpay/{{ app }}/run.sh
+#         regexep: changeme
+#         replace: '{{ app }}'
+
+- name: Jenkins
+  hosts: localhost
+
+  tasks:
+    - name: Crear job
+      jenkins_job:
+        config: "{{ lookup('file', '../jenkins/jobs/prueba/config.xml') }}"
+        name: funciona
+        password: root
+        state: present
+        url: http://localhost:8082
+        user: admin         

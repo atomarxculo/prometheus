@@ -81,3 +81,10 @@ services:
     depends_on:
       - prometheus
 
+  jenkins:
+    image: jenkins/jenkins
+    restart: always
+    volumes:
+      - ./jenkins:/var/jenkins_home
+    ports:
+      - 8082:8080 
