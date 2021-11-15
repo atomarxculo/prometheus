@@ -13,7 +13,7 @@
       blockinfile:
         path: /etc/haproxy/haproxy.cfg
         block: |
-          listen ws_{{ frontend }}
-            mode http
-            bind *:{{ port }}
-            server {{ backend }} {{ ip }}:{{ port }} 
+          listen ws_{{ frontend }} *:{{ port }}
+            mode tcp
+            option tcplog
+            server proxy_{{ backend }} {{ ip }}:{{ port }}
